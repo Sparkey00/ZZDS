@@ -46,12 +46,21 @@ class Router
     public static function findRoute($url)
     {
         foreach (self::$routeTable as $path => $route) {
-            if ($url == $path) {
+            if (preg_match("#$path#i", $url, $matches)) {
                 self::$currentRoute = $route;
                 return true;
             }
         }
         return false;
+    }
+
+    public static function handleRoute($url)
+    {
+        if (self::findRoute($url)) {
+            print 'OK';
+        } else {
+            include '404.html';
+        }
     }
 
 }
