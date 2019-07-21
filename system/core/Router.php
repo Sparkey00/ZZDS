@@ -1,5 +1,8 @@
 <?php
 
+namespace system\core;
+
+
 class Router
 {
     protected static $routeTable = [];
@@ -85,10 +88,11 @@ class Router
     public static function handleRoute($url)
     {
         if (self::findRoute($url)) {
-            $controller = self::stringToCamelCase(self::$currentRoute['controller'], true);
+            $controller = 'app\controllers\\'
+                . self::stringToCamelCase(self::$currentRoute['controller'], true);
             if (class_exists($controller)) {
-                $controllerObject = new $controller;
-                $action = self::stringToCamelCase(self::$currentRoute['action'], false);
+                $controllerObject = new $controller(self::$currentRoute);
+                $action = self::stringToCamelCase(self::$currentRoute['action'], false) . 'Action';
                 if (method_exists($controllerObject, $action)) {
                     $controllerObject->$action();
                 } else {

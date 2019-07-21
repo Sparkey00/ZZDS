@@ -1,14 +1,19 @@
 <?php
 
-class Files
+namespace app\controllers;
+
+use system\core\base\Controller;
+
+class Files extends Controller
 {
-    public function __construct()
+    public function indexAction()
     {
-        print 'class created';
+        print ' action index';
     }
 
-    public function add()
+    public function addAction()
     {
+        debug($this->route);
         print ' action add';
     }
 }
